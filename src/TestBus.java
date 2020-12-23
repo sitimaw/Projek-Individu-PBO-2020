@@ -5,7 +5,7 @@ public class TestBus {
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
-        int menu = 0;
+        int menu;
         boolean lanjut = true;
         Bus bus = new Bus();
 
@@ -29,10 +29,19 @@ public class TestBus {
                     Penumpang penumpang;
                     penumpang = inputDataPenumpang();
                     naik = bus.naikkanPenumpang(penumpang);
+                    if (!naik){
+                        System.out.println("Maaf, saldo tidak cukup");
+                        System.out.print("Apakah ingin menambah saldo?(pilih 'y' jika ya)");
+                        String tambahSaldo = sc.next();
+                        if (tambahSaldo.equalsIgnoreCase("y")) {
+                            tambahSaldoPenumpang(penumpang);
+                            naik = bus.naikkanPenumpang(penumpang);
+                        } else {
+                            System.out.println("Maaf, Penumpang tidak dapat naik!");
+                        }
+                    }
                     if (naik) {
                         System.out.println("Penumpang berhasil naik");
-                    } else {
-                        System.out.println("Maaf, Penumpang tidak dapat naik!");
                     }
                 }
                 case 2 -> {
@@ -156,5 +165,28 @@ public class TestBus {
         System.out.println("+--------+-----------------------------+-----------------------------+-----------------------------+");
         System.out.printf("| TOTAL  |                                            %-44d |\n", jBiasa + jPrioritas + jBerdiri);
         System.out.println("+--------+-----------------------------------------------------------------------------------------+");
+    }
+
+    private static void tambahSaldoPenumpang(Penumpang penumpang)
+    {
+        Scanner sc = new Scanner(System.in);
+        int saldoBaru;
+
+        while (true) {
+            try {
+                System.out.print("Saldo baru: ");
+                saldoBaru = sc.nextInt();
+            } catch (InputMismatchException e) {
+                saldoBaru = 0;
+                sc.next();
+            }
+            if (saldoBaru > Bus.ONGKOS) {
+                break;
+            }
+            System.out.println("\nSaldo yang Anda masukkan tidak cukup!");
+            System.out.println("Harap input ulang saldo yang lebih besar dari" + Bus.ONGKOS + " \n");
+        }
+
+        penumpang.tambahSaldo(saldoBaru);
     }
 }

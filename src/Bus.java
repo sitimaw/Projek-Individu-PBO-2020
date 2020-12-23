@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Bus {
-    private static final int ONGKOS = 2000;
+    public static final int ONGKOS = 2000;
 
     private ArrayList<Penumpang> penumpangBiasa;
     private ArrayList<Penumpang> penumpangPrioritas;
@@ -48,7 +48,7 @@ public class Bus {
 
     public boolean naikkanPenumpang(Penumpang penumpang)
     {
-        if (penumpang.getSaldo() >= 2000) {
+        if (penumpang.getSaldo() >= ONGKOS) {
             if (penumpang.isPrioritas() && penumpangPrioritas.size() < 4) {
                 penumpang.kurangiSaldo(ONGKOS);
                 totalPendapatan += ONGKOS;
