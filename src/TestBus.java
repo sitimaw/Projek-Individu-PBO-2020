@@ -6,6 +6,11 @@ import java.util.Scanner;
  * @version 31/12/2020
  */
 public class TestBus {
+    public TestBus()
+    {
+
+    }
+
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);

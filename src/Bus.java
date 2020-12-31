@@ -56,13 +56,13 @@ public class Bus {
     {
         Scanner sc = new Scanner(System.in);
         if (penumpang.getSaldo() >= ONGKOS) {
-            if (penumpang.isPrioritas() && penumpangPrioritas.size() < 4) {
+            if (penumpang.isPrioritas() && penumpangPrioritas.size() < 1) { //4
                 penumpang.kurangiSaldo(ONGKOS);
                 totalPendapatan += ONGKOS;
                 penumpangPrioritas.add(penumpang);
                 return true;
             }
-            else if (penumpangBiasa.size() < 16) {
+            else if (penumpangBiasa.size() < 1) { //16
                 penumpang.kurangiSaldo(ONGKOS);
                 totalPendapatan += ONGKOS;
                 penumpangBiasa.add(penumpang);
@@ -207,7 +207,7 @@ public class Bus {
         return "\n=========== DATA BUS ===========" +
                 "\nPenumpang Biasa     : " + listBiasa +
                 "\nPenumpang Prioritas : " + listPrioritas +
-                "\nPenumpang Beridiri  : " + listBerdiri +
+                "\nPenumpang Berdiri   : " + listBerdiri +
                 "\nJumlah Penumpang : " + (getJumlahPenumpangBiasa()+getJumlahPenumpangPrioritas()+getJumlahPenumpangBerdiri()) +
                 "\nTotal Pendapatan : Rp" + totalPendapatan +
                 "\n================================";
