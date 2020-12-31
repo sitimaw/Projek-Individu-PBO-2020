@@ -2,7 +2,7 @@
 tes di bluej, penumpang yg sama naek lagi
 --tostring bus
 
-periksa id udah ada atau ga
+--periksa id udah ada atau ga
 --tambah id sama nama di tabel
 
 klo prio naek, biasa yg duduk geser ke bediri, klo yg duduk dah prio semua brrti prio baru ni gabisa naek

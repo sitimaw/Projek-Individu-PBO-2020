@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author Siti Mawaddah
+ * @version 31/12/2020
+ */
 public class Bus {
     public static final int ONGKOS = 2000;
 
@@ -64,14 +68,14 @@ public class Bus {
                 penumpangBiasa.add(penumpang);
                 return true;
             }
-            else if (penumpangBerdiri.size() < 20) {
+            else if (penumpangBerdiri.size() < 20 && !penumpang.isPrioritas()) {
                 penumpang.kurangiSaldo(ONGKOS);
                 totalPendapatan += ONGKOS;
                 penumpangBerdiri.add(penumpang);
                 return true;
             }
             else {
-                System.out.println("Maaf, penumpang telah penuh!\nSilakan tunggu bus berikutnya");
+                System.out.println("Maaf, kapasitas penumpang telah penuh!\nSilakan tunggu bus berikutnya");
                 return false;
             }
         }

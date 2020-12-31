@@ -1,6 +1,10 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author Siti Mawaddah
+ * @version 31/12/2020
+ */
 public class TestBus {
     public static void main(String[] args)
     {
