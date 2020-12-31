@@ -129,24 +129,57 @@ public class Bus {
                 saldoBaru = 0;
                 sc.next();
             }
-            if (saldoBaru > Bus.ONGKOS) {
+            if (saldoBaru+penumpang.getSaldo() >= Bus.ONGKOS) {
                 break;
             }
             System.out.println("\nSaldo yang Anda masukkan tidak cukup!");
-            System.out.println("Harap input ulang saldo yang lebih besar dari " + Bus.ONGKOS + " \n");
+            System.out.println("Anda memerlukan minimal Rp" + (Bus.ONGKOS-penumpang.getSaldo()) + " lagi agar dapat naik!\n");
         }
 
         penumpang.tambahSaldo(saldoBaru);
         System.out.println("Saldo sebesar "+ saldoBaru +" berhasil ditambahkan");
-        naikkanPenumpang(penumpang);
     }
 
     @Override
     public String toString()
     {
-        return "Total penumpang bus  : "
-                + (getJumlahPenumpangBiasa() + getJumlahPenumpangPrioritas() + getJumlahPenumpangBerdiri())
-                + " orang\nTotal pendapatan bus : "
-                + totalPendapatan;
+        String listBiasa="", listPrioritas="", listBerdiri="";
+        if(getJumlahPenumpangBiasa() == 0){
+            listBiasa = "<kosong>";
+        }else{
+            listBiasa = penumpangBiasa.get(0).getNama();
+            for (int i=1; i<getJumlahPenumpangBiasa(); ++i) {
+                listBiasa = listBiasa.concat(", ");
+                listBiasa = listBiasa.concat(penumpangBiasa.get(i).getNama());
+            }
+        }
+
+        if(getJumlahPenumpangPrioritas() == 0){
+            listPrioritas = "<kosong>";
+        }else{
+            listPrioritas = penumpangPrioritas.get(0).getNama();
+            for (int i=1; i<getJumlahPenumpangPrioritas(); ++i) {
+                listPrioritas = listPrioritas.concat(", ");
+                listPrioritas = listPrioritas.concat(penumpangPrioritas.get(i).getNama());
+            }
+        }
+
+        if(getJumlahPenumpangBerdiri() == 0){
+            listBerdiri= "<kosong>";
+        }else{
+            listBerdiri = penumpangBerdiri.get(0).getNama();
+            for (int i=1; i<getJumlahPenumpangBerdiri(); ++i) {
+                listBerdiri = listBerdiri.concat(", ");
+                listBerdiri = listBerdiri.concat(penumpangBerdiri.get(i).getNama());
+            }
+        }
+
+        return "\n=========== DATA BUS ===========" +
+                "\nPenumpang Biasa     : " + listBiasa +
+                "\nPenumpang Prioritas : " + listPrioritas +
+                "\nPenumpang Beridiri  : " + listBerdiri +
+                "\nJumlah Penumpang : " + (getJumlahPenumpangBiasa()+getJumlahPenumpangPrioritas()+getJumlahPenumpangBerdiri()) +
+                "\nTotal Pendapatan : Rp" + totalPendapatan +
+                "\n================================";
     }
 }

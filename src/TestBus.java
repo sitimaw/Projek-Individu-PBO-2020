@@ -14,7 +14,8 @@ public class TestBus {
             System.out.println("1. Naikkan Penumpang");
             System.out.println("2. Turunkan Penumpang");
             System.out.println("3. Lihat Penumpang");
-            System.out.println("4. Keluar");
+            System.out.println("4. Lihat Bus");
+            System.out.println("5. Keluar");
             System.out.print("\nPilihan: ");
             try {
                 menu = sc.nextInt();
@@ -33,17 +34,6 @@ public class TestBus {
                         Penumpang penumpang;
                         penumpang = inputDataPenumpang();
                         naik = bus.naikkanPenumpang(penumpang);
-//                    if (!naik){
-//                        System.out.println("Maaf, saldo tidak cukup");
-//                        System.out.print("Apakah ingin menambah saldo?(pilih 'y' jika ya)");
-//                        String tambahSaldo = sc.next();
-//                        if (tambahSaldo.equalsIgnoreCase("y")) {
-//                            tambahSaldoPenumpang(penumpang);
-//                            naik = bus.naikkanPenumpang(penumpang);
-//                        } else {
-//                            System.out.println("Maaf, Penumpang tidak dapat naik!");
-//                        }
-//                    }
                     }
                     if (naik) {
                         System.out.println("Penumpang berhasil naik");
@@ -70,6 +60,9 @@ public class TestBus {
                     tampilkanDataPenumpang(bus);
                 }
                 case 4 -> {
+                    System.out.println(bus);
+                }
+                case 5 -> {
                     lanjut = false;
                 }
                 default -> {
@@ -104,7 +97,8 @@ public class TestBus {
         }
 
         System.out.print("Nama        : ");
-        nama = sc.next();
+        sc.nextLine();
+        nama = sc.nextLine();
 
         while (true) {
             try {
@@ -151,48 +145,31 @@ public class TestBus {
         System.out.println("+--------------------------------------------------------------------------------------------------+");
         System.out.println("|                                        DATA PENUMPANG BUS                                        |");
         System.out.println("+--------+-----------------------------+-----------------------------+-----------------------------+");
-        System.out.println("|   NO   |            BIASA            |          PRIORITAS          |           BERDIRI           |");
-        System.out.println("+--------+-----------------------------+-----------------------------+-----------------------------+");
+        System.out.println("|        |            BIASA            |          PRIORITAS          |           BERDIRI           |");
+        System.out.println("|   NO   +--------------+--------------+--------------+--------------+--------------+--------------+");
+        System.out.println("|        |      ID      |     Nama     |      ID      |     Nama     |      ID      |     Nama     |");
+        System.out.println("+--------+--------------+--------------+--------------+--------------+--------------+--------------+");
         for (int i = 0; i < jBiasa || i < jPrioritas || i < jBerdiri; ++i) {
-            String biasa = "", prioritas = "", berdiri = "";
+            String nBiasa = "", nPrioritas = "", nBerdiri = "", iBiasa = "", iPrioritas = "", iBerdiri = "";
             if (i < bus.getJumlahPenumpangBiasa()) {
-                biasa = bus.getPenumpangBiasa().get(i).getNama();
+                nBiasa = bus.getPenumpangBiasa().get(i).getNama();
+                iBiasa = Integer.toString(bus.getPenumpangBiasa().get(i).getID());
             }
             if (i < bus.getJumlahPenumpangPrioritas()) {
-                prioritas = bus.getPenumpangPrioritas().get(i).getNama();
+                nPrioritas = bus.getPenumpangPrioritas().get(i).getNama();
+                iPrioritas = Integer.toString(bus.getPenumpangPrioritas().get(i).getID());
             }
             if (i < bus.getJumlahPenumpangBerdiri()) {
-                berdiri = bus.getPenumpangBerdiri().get(i).getNama();
+                nBerdiri = bus.getPenumpangBerdiri().get(i).getNama();
+                iBerdiri = Integer.toString(bus.getPenumpangBerdiri().get(i).getID());
             }
-            System.out.printf("|   %-4d | %-27s | %-27s | %-27s |\n", i + 1, biasa, prioritas, berdiri);
+            System.out.printf("|   %-4d | %-12s | %-12s | %-12s | %-12s | %-12s | %-12s |\n", i + 1, iBiasa, nBiasa, iPrioritas, nPrioritas, iBerdiri, nBerdiri);
         }
-        System.out.println("+--------+-----------------------------+-----------------------------+-----------------------------+");
+        System.out.println("+--------+--------------+--------------+--------------+--------------+--------------+--------------+");
         System.out.printf("| JUMLAH |              %-14d |              %-14d |              %-14d |\n", jBiasa, jPrioritas, jBerdiri);
         System.out.println("+--------+-----------------------------+-----------------------------+-----------------------------+");
         System.out.printf("| TOTAL  |                                            %-44d |\n", jBiasa + jPrioritas + jBerdiri);
         System.out.println("+--------+-----------------------------------------------------------------------------------------+");
     }
 
-    private static void tambahSaldoPenumpang(Penumpang penumpang)
-    {
-        Scanner sc = new Scanner(System.in);
-        int saldoBaru;
-
-        while (true) {
-            try {
-                System.out.print("Saldo baru: ");
-                saldoBaru = sc.nextInt();
-            } catch (InputMismatchException e) {
-                saldoBaru = 0;
-                sc.next();
-            }
-            if (saldoBaru > Bus.ONGKOS) {
-                break;
-            }
-            System.out.println("\nSaldo yang Anda masukkan tidak cukup!");
-            System.out.println("Harap input ulang saldo yang lebih besar dari " + Bus.ONGKOS + " \n");
-        }
-
-        penumpang.tambahSaldo(saldoBaru);
-    }
 }
