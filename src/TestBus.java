@@ -26,15 +26,23 @@ public class TestBus {
 
             switch (menu) {
                 case 1 -> {
-                    boolean naik;
+                    boolean naik, sudahAda;
+
                     if(bus.getJumlahPenumpangBiasa() + bus.getJumlahPenumpangPrioritas() + bus.getJumlahPenumpangBerdiri() >= 40) {
                         System.out.println("Maaf, penumpang telah penuh!\nSilakan tunggu bus berikutnya");
                         naik = false;
                     } else {
                         Penumpang penumpang;
                         penumpang = inputDataPenumpang();
-                        naik = bus.naikkanPenumpang(penumpang);
+                        sudahAda = bus.isSudahAda(penumpang);
+                        if (sudahAda) {
+                            naik = false;
+                        }
+                        else {
+                            naik = bus.naikkanPenumpang(penumpang);
+                        }
                     }
+
                     if (naik) {
                         System.out.println("Penumpang berhasil naik");
                     }

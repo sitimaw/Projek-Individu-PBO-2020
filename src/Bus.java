@@ -89,6 +89,32 @@ public class Bus {
         }
     }
 
+    public boolean isSudahAda(Penumpang penumpang)
+    {
+        for (Penumpang p : penumpangBiasa) {
+            if(penumpang.getID() == p.getID()) {
+                System.out.println("Penumpang dengan ID tersebut sudah berada di dalam bus!");
+                return true;
+            }
+        }
+
+        for (Penumpang p : penumpangPrioritas) {
+            if(penumpang.getID() == p.getID()) {
+                System.out.println("Penumpang dengan ID tersebut sudah berada di dalam bus!");
+                return true;
+            }
+        }
+
+        for (Penumpang p : penumpangBerdiri) {
+            if(penumpang.getID() == p.getID()) {
+                System.out.println("Penumpang dengan ID tersebut sudah berada di dalam bus!");
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean turunkanPenumpang(int id)
     {
         for (Penumpang p : penumpangBiasa) {

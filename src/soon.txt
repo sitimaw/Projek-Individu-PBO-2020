@@ -1,9 +1,9 @@
-tambah saldo
+--tambah saldo
 tes di bluej, penumpang yg sama naek lagi
-tostring bus
+--tostring bus
 
 periksa id udah ada atau ga
-tambah id sama nama di tabel
+--tambah id sama nama di tabel
 
 klo prio naek, biasa yg duduk geser ke bediri, klo yg duduk dah prio semua brrti prio baru ni gabisa naek
 klo biasa turun, prio yang bediri geser ke biasa, atau yg laen yg bediri geser ke biasa
