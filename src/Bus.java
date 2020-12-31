@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Bus {
     public static final int ONGKOS = 2000;
@@ -48,6 +50,7 @@ public class Bus {
 
     public boolean naikkanPenumpang(Penumpang penumpang)
     {
+        Scanner sc = new Scanner(System.in);
         if (penumpang.getSaldo() >= ONGKOS) {
             if (penumpang.isPrioritas() && penumpangPrioritas.size() < 4) {
                 penumpang.kurangiSaldo(ONGKOS);
@@ -67,8 +70,23 @@ public class Bus {
                 penumpangBerdiri.add(penumpang);
                 return true;
             }
+            else {
+                System.out.println("Maaf, penumpang telah penuh!\nSilakan tunggu bus berikutnya");
+                return false;
+            }
         }
-        return false;
+        else {
+            System.out.println("Maaf, saldo tidak cukup");
+            System.out.print("Apakah ingin menambah saldo?(pilih 'y' jika ya)");
+            String tambahSaldo = sc.next();
+            if (tambahSaldo.equalsIgnoreCase("y")) {
+                tambahSaldoPenumpang(penumpang);
+                return naikkanPenumpang(penumpang);
+            } else {
+                System.out.println("Maaf, Penumpang tidak dapat naik!");
+                return false;
+            }
+        }
     }
 
     public boolean turunkanPenumpang(int id)
@@ -96,6 +114,31 @@ public class Bus {
         }
 
         return false;
+    }
+
+    private void tambahSaldoPenumpang(Penumpang penumpang)
+    {
+        Scanner sc = new Scanner(System.in);
+        int saldoBaru;
+
+        while (true) {
+            try {
+                System.out.print("Saldo baru: ");
+                saldoBaru = sc.nextInt();
+            } catch (InputMismatchException e) {
+                saldoBaru = 0;
+                sc.next();
+            }
+            if (saldoBaru > Bus.ONGKOS) {
+                break;
+            }
+            System.out.println("\nSaldo yang Anda masukkan tidak cukup!");
+            System.out.println("Harap input ulang saldo yang lebih besar dari " + Bus.ONGKOS + " \n");
+        }
+
+        penumpang.tambahSaldo(saldoBaru);
+        System.out.println("Saldo sebesar "+ saldoBaru +" berhasil ditambahkan");
+        naikkanPenumpang(penumpang);
     }
 
     @Override

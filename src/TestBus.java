@@ -26,19 +26,24 @@ public class TestBus {
             switch (menu) {
                 case 1 -> {
                     boolean naik;
-                    Penumpang penumpang;
-                    penumpang = inputDataPenumpang();
-                    naik = bus.naikkanPenumpang(penumpang);
-                    if (!naik){
-                        System.out.println("Maaf, saldo tidak cukup");
-                        System.out.print("Apakah ingin menambah saldo?(pilih 'y' jika ya)");
-                        String tambahSaldo = sc.next();
-                        if (tambahSaldo.equalsIgnoreCase("y")) {
-                            tambahSaldoPenumpang(penumpang);
-                            naik = bus.naikkanPenumpang(penumpang);
-                        } else {
-                            System.out.println("Maaf, Penumpang tidak dapat naik!");
-                        }
+                    if(bus.getJumlahPenumpangBiasa() + bus.getJumlahPenumpangPrioritas() + bus.getJumlahPenumpangBerdiri() >= 40) {
+                        System.out.println("Maaf, penumpang telah penuh!\nSilakan tunggu bus berikutnya");
+                        naik = false;
+                    } else {
+                        Penumpang penumpang;
+                        penumpang = inputDataPenumpang();
+                        naik = bus.naikkanPenumpang(penumpang);
+//                    if (!naik){
+//                        System.out.println("Maaf, saldo tidak cukup");
+//                        System.out.print("Apakah ingin menambah saldo?(pilih 'y' jika ya)");
+//                        String tambahSaldo = sc.next();
+//                        if (tambahSaldo.equalsIgnoreCase("y")) {
+//                            tambahSaldoPenumpang(penumpang);
+//                            naik = bus.naikkanPenumpang(penumpang);
+//                        } else {
+//                            System.out.println("Maaf, Penumpang tidak dapat naik!");
+//                        }
+//                    }
                     }
                     if (naik) {
                         System.out.println("Penumpang berhasil naik");
@@ -72,6 +77,7 @@ public class TestBus {
                 }
             }
         } while (lanjut);
+
     }
 
     private static Penumpang inputDataPenumpang()
@@ -184,7 +190,7 @@ public class TestBus {
                 break;
             }
             System.out.println("\nSaldo yang Anda masukkan tidak cukup!");
-            System.out.println("Harap input ulang saldo yang lebih besar dari" + Bus.ONGKOS + " \n");
+            System.out.println("Harap input ulang saldo yang lebih besar dari " + Bus.ONGKOS + " \n");
         }
 
         penumpang.tambahSaldo(saldoBaru);
