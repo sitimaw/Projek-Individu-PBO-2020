@@ -34,7 +34,7 @@ public class TestBus {
             }
 
             switch (menu) {
-                case 1 -> {
+                case 1:
                     boolean naik, sudahAda;
 
                     if(bus.getJumlahPenumpangBiasa() + bus.getJumlahPenumpangPrioritas() + bus.getJumlahPenumpangBerdiri() >= 40) {
@@ -55,8 +55,9 @@ public class TestBus {
                     if (naik) {
                         System.out.println("Penumpang berhasil naik");
                     }
-                }
-                case 2 -> {
+                    break;
+
+                case 2:
                     boolean turun;
                     int id;
                     try {
@@ -72,19 +73,22 @@ public class TestBus {
                     } else {
                         System.out.println("Maaf, Penumpang tidak ditemukan!");
                     }
-                }
-                case 3 -> {
+                    break;
+
+                case 3:
                     tampilkanDataPenumpang(bus);
-                }
-                case 4 -> {
+                    break;
+
+                case 4:
                     System.out.println(bus);
-                }
-                case 5 -> {
+                    break;
+
+                case 5:
                     lanjut = false;
-                }
-                default -> {
+                    break;
+
+                default:
                     System.out.println("Maaf, Pilihan tidak tersedia!");
-                }
             }
         } while (lanjut);
 

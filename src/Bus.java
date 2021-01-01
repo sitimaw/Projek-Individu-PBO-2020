@@ -56,13 +56,13 @@ public class Bus {
     {
         Scanner sc = new Scanner(System.in);
         if (penumpang.getSaldo() >= ONGKOS) {
-            if (penumpang.isPrioritas() && penumpangPrioritas.size() < 1) { //4
+            if (penumpang.isPrioritas() && penumpangPrioritas.size() < 4) {
                 penumpang.kurangiSaldo(ONGKOS);
                 totalPendapatan += ONGKOS;
                 penumpangPrioritas.add(penumpang);
                 return true;
             }
-            else if (penumpangBiasa.size() < 1) { //16
+            else if (penumpangBiasa.size() < 16) {
                 penumpang.kurangiSaldo(ONGKOS);
                 totalPendapatan += ONGKOS;
                 penumpangBiasa.add(penumpang);
@@ -73,6 +73,22 @@ public class Bus {
                 totalPendapatan += ONGKOS;
                 penumpangBerdiri.add(penumpang);
                 return true;
+            }
+            else if(penumpangBerdiri.size() < 20) {
+                /* jika penumpang prioritas naik dan semua kursi penuh, penumpang biasa yang duduk akan berdiri
+                 * dan penumpang prioritas duduk di kursi biasa */
+                for(Penumpang p : penumpangBiasa) {
+                    if(!p.isPrioritas()) {
+                        penumpangBerdiri.add(p);
+                        penumpangBiasa.remove(p);
+                        penumpang.kurangiSaldo(ONGKOS);
+                        totalPendapatan += ONGKOS;
+                        penumpangBiasa.add(penumpang);
+                        return true;
+                    }
+                }
+                System.out.println("Maaf, kapasitas penumpang telah penuh!\nSilakan tunggu bus berikutnya");
+                return false;
             }
             else {
                 System.out.println("Maaf, kapasitas penumpang telah penuh!\nSilakan tunggu bus berikutnya");
@@ -124,7 +140,11 @@ public class Bus {
         for (Penumpang p : penumpangBiasa) {
             if (p.getID() == id) {
                 penumpangBiasa.remove(p);
-//                penumpangBiasa.add(penumpangBerdiri.get(0));
+                if(getJumlahPenumpangBerdiri() > 0) {
+                    // jika ada penumpang yang berdiri maka penumpang tersebut duduk di kursi yang sudah kosong
+                    penumpangBiasa.add(penumpangBerdiri.get(0));
+                    penumpangBerdiri.remove(0);
+                }
                 return true;
             }
         }

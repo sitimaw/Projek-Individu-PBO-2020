@@ -1,5 +1,5 @@
 --tambah saldo
-tes di bluej, penumpang yg sama naek lagi
+--tes di bluej, penumpang yg sama naek lagi
 --tostring bus
 
 --periksa id udah ada atau ga
